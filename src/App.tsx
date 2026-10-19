@@ -675,8 +675,8 @@ function RecordsPage({ module, records, action, back, update, remove, openEvent,
     <Card className="table-card"><div className="data-table">
       <div className="table-row table-header" style={grid}>{columns.map(c => <span key={c.header}>{c.header}</span>)}<span>{pipeline ? "Stage" : "Section"}</span><span /></div>
       {visible.length ? visible.map(r => <div className="table-row record-row" style={grid} key={r.key} onClick={() => setOpenKey(r.key)}>
-        {columns.map(c => <span key={c.header}>{c.index === 0 && <i className="record-icon">{module.icon}</i>}{r.cells[c.index]}</span>)}
-        <span className="quote-status"><em className={done(r) ? "booked" : pipeline ? "" : "section"}>{stageText(module.id, r)}</em>{pipeline && !done(r) && <button onClick={event => { event.stopPropagation(); advance(r); }}>{nextText(module.id, r)}</button>}</span>
+        {columns.map(c => <span key={c.header} data-label={c.index === 0 ? undefined : c.header}>{c.index === 0 && <i className="record-icon">{module.icon}</i>}{r.cells[c.index]}</span>)}
+        <span className="quote-status" data-label={pipeline ? "Stage" : "Section"}><em className={done(r) ? "booked" : pipeline ? "" : "section"}>{stageText(module.id, r)}</em>{pipeline && !done(r) && <button onClick={event => { event.stopPropagation(); advance(r); }}>{nextText(module.id, r)}</button>}</span>
         <span className="row-actions"><button aria-label={`Edit ${r.cells[0]}`} onClick={event => { event.stopPropagation(); setEditKey(r.key); }}>✎ Edit</button></span>
       </div>) : <div className="empty-state"><b>No records found</b><span>Try a different search, filter or {pipeline ? "stage" : "section"}.</span></div>}
     </div></Card>
